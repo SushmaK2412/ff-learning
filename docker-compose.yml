@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # Central Orchestrator
+  orchestrator:
+    build: .
+    container_name: fl_orchestrator
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./federated:/app/federated
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0
+    networks:
+      - fl_network
+
+  # Client 1 (Financial Institution A)
+  client1:
+    build: .
+    container_name: fl_institution_a
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./federated:/app/federated
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CLIENT_ID=Institution_A
+    networks:
+      - fl_network
+    depends_on:
+      - orchestrator
+
+  # Client 2 (Financial Institution B)
+  client2:
+    build: .
+    container_name: fl_institution_b
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./federated:/app/federated
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CLIENT_ID=Institution_B
+    networks:
+      - fl_network
+    depends_on:
+      - orchestrator
+
+  # Client 3 (Financial Institution C)
+  client3:
+    build: .
+    container_name: fl_institution_c
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./federated:/app/federated
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CLIENT_ID=Institution_C
+    networks:
+      - fl_network
+    depends_on:
+      - orchestrator
+
+networks:
+  fl_network:
+    driver: bridge
+

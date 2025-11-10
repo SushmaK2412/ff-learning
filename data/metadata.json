@@ -1,0 +1,20 @@
+{
+  "institutions": [
+    "Institution_A",
+    "Institution_B",
+    "Institution_C"
+  ],
+  "data_sources": {
+    "Institution_A": "JPM",
+    "Institution_B": "BAC",
+    "Institution_C": "WFC"
+  },
+  "download_date": "2025-11-10T17:35:02.708047",
+  "forecasting_tasks": [
+    "cash_flow_30d",
+    "cash_flow_60d",
+    "cash_flow_90d",
+    "default_risk",
+    "investment_return"
+  ]
+}
