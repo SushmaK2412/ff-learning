@@ -243,10 +243,52 @@ We use a **Lightweight LSTM (Long Short-Term Memory) Neural Network**, not Rando
 
 ## 🚀 Quick Start
 
-### Using Make Commands (Recommended)
+### Option 1: Local Python (Easiest - Recommended for Beginners)
 
-The easiest way to manage the demo is using the provided Makefile:
+**Perfect for first-time users!** No Docker needed.
 
+```bash
+# 1. Install Python dependencies
+pip install -r requirements.txt
+
+# 2. Run the app (data downloads automatically!)
+streamlit run app.py
+```
+
+That's it! The app will:
+- ✅ Automatically clean old data files
+- ✅ Download fresh financial data from Yahoo Finance
+- ✅ Start the dashboard at **http://localhost:8501**
+
+**Prerequisites:**
+- Python 3.7+ (Python 3.9+ recommended)
+- Internet connection
+
+### Option 2: Docker Setup (For Multi-Container Simulation)
+
+For the full multi-node federated learning experience with separate containers:
+
+#### Prerequisites
+- **Python 3.7+**
+- **Docker Desktop** installed
+- **Internet connection**
+
+#### Step 1: Install Docker Desktop
+
+**For macOS:**
+1. Download Docker Desktop from: https://www.docker.com/products/docker-desktop/
+2. Install the `.dmg` file
+3. Launch Docker Desktop from Applications
+4. Wait for Docker to start (whale icon in menu bar)
+5. Verify installation:
+   ```bash
+   docker --version
+   docker-compose --version
+   ```
+
+#### Step 2: Run with Docker
+
+**Using Makefile (Recommended):**
 ```bash
 # Complete fresh start (cleans old data, builds, and starts)
 make fresh
@@ -260,7 +302,15 @@ make down        # Stop containers
 make clean       # Remove all Docker resources
 ```
 
-**Available Commands:**
+**Or using Docker Compose directly:**
+```bash
+# Build and start all services
+docker-compose up --build
+```
+
+The dashboard will be available at **http://localhost:8501**
+
+**Available Make Commands:**
 - `make build` - Build Docker images
 - `make up` - Start all containers in detached mode
 - `make logs` - Follow orchestrator logs
@@ -270,86 +320,7 @@ make clean       # Remove all Docker resources
 - `make fresh-data` - Clean old data and download fresh data
 - `make fresh` - Complete fresh start (clean + fresh-data + build + up)
 
-> **Note:** The `fresh-data` command automatically cleans all old CSV files before downloading new data, ensuring a clean state on each run.
-
-### Prerequisites
-
-- **Python 3.9+**
-- **Docker Desktop** (for containerized deployment)
-- **Internet connection** (for downloading financial data)
-
-### Step 1: Install Docker Desktop
-
-Since Docker is not currently installed, follow these steps:
-
-#### For macOS:
-1. Download Docker Desktop from: https://www.docker.com/products/docker-desktop/
-2. Install the `.dmg` file
-3. Launch Docker Desktop from Applications
-4. Wait for Docker to start (whale icon in menu bar)
-5. Verify installation:
-   ```bash
-   docker --version
-   docker-compose --version
-   ```
-
-#### Alternative: Run Without Docker (Local Setup)
-If you prefer to run without Docker, you can set up a Python virtual environment:
-
-```bash
-# Create virtual environment
-python3 -m venv venv
-
-# Activate virtual environment
-source venv/bin/activate  # On macOS/Linux
-# or
-venv\Scripts\activate  # On Windows
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Step 2: Download Financial Data
-
-Before running the demo, you need to download financial data:
-
-```bash
-# Using Python directly
-python data/download_data.py
-
-# Or using Docker (after Docker is set up)
-docker-compose run orchestrator python data/download_data.py
-```
-
-This script will:
-- Download stock data from Yahoo Finance (JPM, BAC, WFC)
-- Generate synthetic financial metrics for each institution
-- Prepare datasets for different forecasting tasks
-- Save data to `data/processed/` directory
-
-### Step 3: Run the Demo
-
-#### Option A: Using Docker (Recommended)
-
-```bash
-# Build and start all services
-docker-compose up --build
-
-# The Streamlit dashboard will be available at:
-# http://localhost:8501
-```
-
-#### Option B: Local Python Environment
-
-```bash
-# Activate virtual environment (if using)
-source venv/bin/activate
-
-# Run Streamlit app
-streamlit run app.py
-```
-
-The dashboard will open automatically in your browser at `http://localhost:8501`
+> **Note:** The app automatically downloads fresh data on startup, so you don't need to manually download data first!
 
 ## 📊 Using the Dashboard
 
@@ -489,31 +460,6 @@ Available tasks:
 - PySyft may have compatibility issues with newer PyTorch versions
 - Try: `pip install syft==0.6.0 --no-deps` then install dependencies separately
 - Alternative: Use a simplified federated learning implementation (already included)
-
-## 📚 Research Paper
-
-This implementation is based on the research paper:
-**"Federated Learning Architectures for Privacy-Preserving Financial Forecasting in Enterprise Systems"**
-
-See `src/FederatedLearning.md` for the full paper.
-
-## 🎯 Demo Scenarios
-
-### Conference Presentation Tips
-
-1. **Pre-download Data**: Run data download before the demo
-2. **Test Run**: Do a full training run to ensure everything works
-3. **Screenshots**: Capture key visualizations for backup slides
-4. **Explain Architecture**: Use the architecture diagram in README
-5. **Highlight Results**: Emphasize the 37% accuracy improvement
-
-### Key Talking Points
-
-- **Privacy**: Data never leaves client institutions
-- **Efficiency**: 65% reduction in data transfer
-- **Accuracy**: 37% improvement over centralized approach
-- **Scalability**: Easy to add more institutions
-- **Real-world Applicable**: Based on actual research implementation
 
 ## 🤝 Contributing
 
