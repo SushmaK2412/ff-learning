@@ -11,9 +11,9 @@ This project implements a federated learning architecture for financial forecast
 
 The system simulates three financial institutions (Institution A, Institution B, Institution C) participating in federated learning, demonstrating:
 - ✅ Privacy-preserving model training
-- ✅ Reduced data transfer requirements (65% reduction)
-- ✅ Improved forecasting accuracy (37% improvement)
-- ✅ Computational efficiency gains (52% reduction)
+- ✅ Reduced data transfer requirements
+- ✅ Improved forecasting accuracy
+- ✅ Computational efficiency gains
 
 ## 🏗️ Architecture
 
